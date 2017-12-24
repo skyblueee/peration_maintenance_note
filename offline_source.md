@@ -56,25 +56,32 @@ Maybe you want `rsync -zvrtopg usb /var/debs` to update.
         ```
     1. `#apt-mirror`
     1. `rsync -zvrtopg /path/to/your/aptUsbMirror /path/to/offline/mirror`
-1. Use Apache to set up a source mirror.
-    1. `#ln -s /path/to/offline/mirror /var/www/debian`
-    1. modify `httpd.conf`.
+1. Visit your mirror.
+    1. Local file visit. Modify source.list on localhost.
         ```
-        <Directory />
-            Options FollowSymLinks
-            AllowOverride None
-            Order deny,allow
-            allow from all
-        </Directory>
+        deb file:///path/to/offline/mirror/mirrors.eg.com/debian main
+        ```
+    1. Http visit.
+        1. Use Apache to set up a source mirror.
+            1. `#ln -s /path/to/offline/mirror/mirrors.eg.com/debian /var/www/debian`
+            1. modify `httpd.conf`.
+                ```
+                <Directory />
+                    Options FollowSymLinks
+                    AllowOverride None
+                    Order deny,allow
+                    allow from all
+                </Directory>
 
-        <Directory "/debian">
-              Options Indexes FollowSymLinks
-              AllowOverride None
-              Require all granted
-        </Directory>
-        ```
-    1.  `#service apache2 restart`
-1. modify source.list on the client.
-    ```
-    deb [arch=amd64] http://server_ip/debian main ...
-    ```
+                <Directory "/debian">
+                      Options Indexes FollowSymLinks
+                      AllowOverride None
+                      Require all granted
+                </Directory>
+                ```
+            1.  `#service apache2 restart`
+        1. modify source.list on the client.
+            ```
+            deb [arch=amd64] http://server_ip/debian main ...
+            ```
+[More detail References](http://www.cnblogs.com/pengdonglin137/p/3474260.html)
