@@ -52,18 +52,18 @@ Maybe you want `rsync -zvrtopg usb /var/debs` to update.
     1. modify `/etc/apt/mirror.list`, change `base_path`, add sources.
         ```
         set base_path = /path/to/your/aptUsbMirror
-        deb http://mirrors.eg.com/debian main ...
+        deb http://mirrors.eg.com/debian dist main contrib non-free
         ```
     1. `#apt-mirror`
-    1. `rsync -zvrtopg /path/to/your/aptUsbMirror /path/to/offline/mirror`
+    1. `rsync -zvrtopg /path/to/your/aptUsbMirror /path/to/offline_mirror`
 1. Visit your mirror.
     1. Local file visit. Modify source.list on localhost.
         ```
-        deb file:///path/to/offline/mirror/mirrors.eg.com/debian main
+        deb file:///path/to/offline_mirror/mirror/mirrors.eg.com/debian dist main contrib non-free
         ```
     1. Http visit.
         1. Use Apache to set up a source mirror.
-            1. `#ln -s /path/to/offline/mirror/mirrors.eg.com/debian /var/www/debian`
+            1. `#ln -s /path/to/offline_mirror/mirror/mirrors.eg.com/debian /var/www/debian`
             1. modify `httpd.conf`.
                 ```
                 <Directory />
@@ -82,6 +82,6 @@ Maybe you want `rsync -zvrtopg usb /var/debs` to update.
             1.  `#service apache2 restart`
         1. modify source.list on the client.
             ```
-            deb [arch=amd64] http://server_ip/debian main ...
+            deb [arch=amd64] http://server_ip/debian dist main contrib non-free
             ```
 [More detail References](http://www.cnblogs.com/pengdonglin137/p/3474260.html)
