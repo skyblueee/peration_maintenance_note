@@ -26,6 +26,7 @@
 ## Use local repository.
 ### Debian
 1. make a local dir (e.g. `/var/debs`) and copy your deb files into it.
+Maybe you want `rsync -zvrtopg usb /var/debs` to update.
 1. `#dpkg-scanpackages debs /dev/null |gzip > /var/debs/Packages.gz`
 1. add `deb file:///var/debs` to sources.list.
 
@@ -50,12 +51,13 @@
     1. `#apt-get install apt-mirror`
     1. modify `/etc/apt/mirror.list`, change `base_path`, add sources.
         ```
-        set base_path = /path/to/your/aptMirror
+        set base_path = /path/to/your/aptUsbMirror
         deb http://mirrors.eg.com/debian main ...
         ```
     1. `#apt-mirror`
+    1. `rsync -zvrtopg /path/to/your/aptUsbMirror /path/to/offline/mirror`
 1. Use Apache to set up a source mirror.
-    1. `#ln -s /path/to/your/aptMirror /var/www/debian`
+    1. `#ln -s /path/to/offline/mirror /var/www/debian`
     1. modify `httpd.conf`.
         ```
         <Directory />
