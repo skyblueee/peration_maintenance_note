@@ -33,3 +33,6 @@
 1. `cp Crack/mysql-connector-java-5.1.42-bin.jar /opt/atlassian/confluence/confluence/WEB-INF/lib`
 1. `service confluence start`
 1. `firefox localhost:8090` -> DatabaseURL=jdbc:mysql://localhost/confluence?sessionVariables=tx_isolation='READ-COMMITTED'
+
+## Customization
+* [Disable attachment downloads](disable_attachment_downloads_confluence.md)
