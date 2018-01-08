@@ -13,9 +13,9 @@
     ```
 1. run `service mysql start & mysql` as root:
     ```mysql
-    create database confluence default character set utf8 collate utf8_bin;
+    create database confluencedb default character set utf8 collate utf8_bin;
     create user 'confluence'@'localhost' identified by 'confluencepasswd';
-    grant all privileges on confluence.* to 'confluence'@'%' identified by 'confluencepasswd';
+    grant all privileges on confluencedb.* to 'confluence'@'%' identified by 'confluencepasswd';
     flush privileges;
     ```
 ## Installation
@@ -33,6 +33,10 @@
 1. `cp Crack/mysql-connector-java-5.1.42-bin.jar /opt/atlassian/confluence/confluence/WEB-INF/lib`
 1. `service confluence start`
 1. `firefox localhost:8090` -> DatabaseURL=jdbc:mysql://localhost/confluence?sessionVariables=tx_isolation='READ-COMMITTED'
+
+## Firewall
+1. `firewall-cmd --zone=public --add-port=8090/tcp --permanent`
+1. `firewall-cmd --reload`
 
 ## Customization
 * [Disable attachment downloads](disable_attachment_downloads_confluence.md)

@@ -13,9 +13,9 @@
     ```
 1. run `service mysql start & mysql` as root:
     ```mysql
-    create database jira default character set utf8 collate utf8_bin;
+    create database jiradb default character set utf8 collate utf8_bin;
     create user 'jira'@'localhost' identified by 'jirapasswd';
-    grant all privileges on jira.* to 'jira'@'%' identified by 'jirapasswd';
+    grant all privileges on jiradb.* to 'jira'@'%' identified by 'jirapasswd';
     flush privileges;
     ```
 ## Installation
@@ -23,6 +23,10 @@
 1. `chmod +x atlassian-jira-software-7.3.8-x64.bin`
 1. `./atlassian-jira-software-7.3.8-x64.bin`
 1. `firefox localhost:8080`
+
+## Firewall
+1. `firewall-cmd --zone=public --add-port=8080/tcp --permanent`
+1. `firewall-cmd --reload`
 
 ## Crack[Test only]
 1. `service jira stop`
