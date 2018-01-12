@@ -1,6 +1,6 @@
 ## Preparation
 1. `java -version`(should be >=1.8)
-1. install and configure mysqld, `vim /etc/mysql/mysql.conf.d/mysqld.cnf`
+1. install and configure mysqld, `vim /etc/mysql/conf.d/mysqld.cnf`
     ```
     collation_server=utf8_bin
     character_set_server=utf8
@@ -37,6 +37,14 @@
 ## Firewall
 1. `firewall-cmd --zone=public --add-port=8090/tcp --permanent`
 1. `firewall-cmd --reload`
+
+## 附件预览中文乱码
+1. `cp -r /your_path_to_win_C/windows/fonts /usr/share/fonts/msfonts`
+1. Edit `/opt/atlassian/confluence/bin/setenv.sh`, add new line:
+    > CATALINA_OPTS="-Dconfluence.document.conversion.fontpath=/usr/share/fonts/msfonts/ ${CATALINA_OPTS}"
+1. `cd /var/atlassian/application-data/confluence/ & rm -rf viewfile/* & rm -rf shared-home/dcl-document/*`(clear cache for old files)
+1. restart confluence.
+
 
 ## Customization
 * [Disable attachment downloads](disable_attachment_downloads_confluence.md)
