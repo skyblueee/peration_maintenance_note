@@ -1,7 +1,8 @@
 ## Preparation
 1. `java -version`(should be >=1.8)
-1. install and configure mysqld, `vim /etc/mysql/conf.d/mysqld.cnf`
+1. install and configure mysqld, `vim /etc/my.cnf`
     ```
+    [mysqld]
     collation_server=utf8_bin
     character_set_server=utf8
     skip-character-set-client-handshake
@@ -11,7 +12,8 @@
     binlog_format=row
     transaction-isolation=READ-COMMITTED
     ```
-1. run `service mysql start & mysql` as root:
+    run `service mysql start` as root. If failed, `rm -f /var/lib/mysql/ib_logfile*`(You need to delete those files when innodb_log_file_size is changed.)
+1. run `mysql -u root`:
     ```mysql
     create database confluencedb default character set utf8 collate utf8_bin;
     create user 'confluence'@'localhost' identified by 'confluencepasswd';
@@ -32,7 +34,7 @@
 1. `cp atlassian-extras-2.4.jar /opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.2.jar`
 1. `cp Crack/mysql-connector-java-5.1.42-bin.jar /opt/atlassian/confluence/confluence/WEB-INF/lib`
 1. `service confluence start`
-1. `firefox localhost:8090` -> DatabaseURL=jdbc:mysql://localhost/confluence?sessionVariables=tx_isolation='READ-COMMITTED'
+1. `firefox localhost:8090` -> DatabaseURL=jdbc:mysql://localhost/confluencedb?sessionVariables=tx_isolation='READ-COMMITTED'
 
 ## Firewall
 1. `firewall-cmd --zone=public --add-port=8090/tcp --permanent`
@@ -42,7 +44,6 @@
 1. `cp -r /your_path_to_win_C/windows/fonts /usr/share/fonts/msfonts`
 1. Edit `/opt/atlassian/confluence/bin/setenv.sh`, add new line:
     > CATALINA_OPTS="-Dconfluence.document.conversion.fontpath=/usr/share/fonts/msfonts/ ${CATALINA_OPTS}"
-1. `cd /var/atlassian/application-data/confluence/ & rm -rf viewfile/* & rm -rf shared-home/dcl-document/*`(clear cache for old files)
 1. restart confluence.
 
 
