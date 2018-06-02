@@ -72,6 +72,12 @@ and replace it with either of the following two code blocks:
     a#download-all-link {
         display: none !important;
     }
+    a.content-metadata-attachments {
+        display: none !important;
+    }
+    a#content-metadata-attachments {
+        display: none !important;
+    }
     ```
 1. Save
 ### Remove the button on **certain space**
@@ -80,4 +86,9 @@ and replace it with either of the following two code blocks:
 1. Paste the above CSS into the text field.
 1. Save
 
+## More
+1. Comment out the following line in file viewattachments.vm:
+```
+<a id="download-all-link" href="$req.contextPath/pages/downloadallattachments.action?pageId=$pageId" title="$action.getText('download.all.desc')">$action.getText('download.all')</a>
+```
 [Reference](https://confluence.atlassian.com/confkb/how-to-disable-attachment-downloads-215484007.html)
