@@ -84,4 +84,7 @@ Maybe you want `rsync -zvrtopg usb /var/debs` to update.
             ```
             deb [arch=amd64] http://server_ip/debian dist main contrib non-free
             ```
+1. If GPG Error:
+    `wget -q -O - https://archive.kali.org/archive-key.asc | apt-key add`
+
 [More detail References](http://www.cnblogs.com/pengdonglin137/p/3474260.html)
